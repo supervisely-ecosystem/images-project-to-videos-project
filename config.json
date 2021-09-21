@@ -7,10 +7,12 @@
   "description": "Creates video project from images project",
   "docker_image": "supervisely/base-py-sdk:6.1.95",
   "main_script": "src/main.py",
-  "modal_template": "src/modal.html",
-  "modal_template_state": {"frameRate": 30},
   "task_location": "workspace_tasks",
-  "isolate": true,
+  "icon": "https://i.imgur.com/9uY44aW.png",
+  "icon_background": "#FFFFFF",
   "headless": true,
-  "icon": "https://i.imgur.com/4iUNhZG.png"
+  "context_menu": {
+    "target": ["images_project"],
+    "context_root": "Transform"
+  }
 }
