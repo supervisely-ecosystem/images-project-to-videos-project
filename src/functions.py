@@ -7,7 +7,7 @@ from supervisely_lib.video_annotation.video_tag_collection import VideoTag, Vide
 
 
 def process_video(api, img_dataset, vid_dataset):
-    images_infos = api.image.get_list(img_dataset.id)
+    images_infos = api.image.get_list(img_dataset.id, sort='name')
     if len(images_infos) == 0:
         g.my_app.logger.warn(f'There are no images in {img_dataset.name} dataset')
     image_shape = None
