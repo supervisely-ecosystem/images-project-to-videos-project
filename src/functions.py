@@ -24,7 +24,6 @@ def process_video(api, img_dataset, vid_dataset):
     api.image.download_paths(img_dataset.id, images_ids, images_paths)
 
     video_path = os.path.join(g.work_dir, f"{vid_dataset.name}.mp4")
-
     video = cv2.VideoWriter(video_path, cv2.VideoWriter_fourcc(*'vp09'), int(g.frame_rate), image_shape)
     progress = sly.Progress("Processing video frames:", len(images_infos))
     for img_path in images_paths:
@@ -33,10 +32,13 @@ def process_video(api, img_dataset, vid_dataset):
         silent_remove(img_path)
         progress.iter_done_report()
     video.release()
-
     video_names = [f"{vid_dataset.name}.mp4"]
     video_paths = [video_path]
+
+    upl_progress = sly.Progress("Uploading video:", 1)
     video_info = api.video.upload_paths(vid_dataset.id, names=video_names, paths=video_paths)
+    upl_progress.iter_done_report()
+
     video_info = video_info[0]
     silent_remove(video_path)
     return video_info, images_ids
@@ -45,7 +47,6 @@ def process_video(api, img_dataset, vid_dataset):
 def process_annotations(api, meta, img_dataset, video_info, images_ids):
     ann_infos = api.annotation.download_batch(img_dataset.id, images_ids)
     anns = [sly.Annotation.from_json(x.annotation, meta) for x in ann_infos]
-
     video_objects_col = []
     video_frames_col = []
     video_tags_col = []
@@ -77,5 +78,7 @@ def process_annotations(api, meta, img_dataset, video_info, images_ids):
     video_frames_col = sly.FrameCollection(video_frames_col)
     video_tags_col = VideoTagCollection(video_tags_col)
 
+    upl_progress = sly.Progress("Uploading video annotation:", 1)
     video_ann = sly.VideoAnnotation(img_size, len(anns), video_objects_col, video_frames_col, video_tags_col)
     api.video.annotation.append(video_info.id, video_ann)
+    upl_progress.iter_done_report()
