@@ -77,7 +77,6 @@ def process_annotations(api, meta, img_dataset, video_info, images_ids):
     video_objects_col = sly.VideoObjectCollection(video_objects_col)
     video_frames_col = sly.FrameCollection(video_frames_col)
     video_tags_col = VideoTagCollection(video_tags_col)
-
     upl_progress = sly.Progress("Uploading video annotation:", 1)
     video_ann = sly.VideoAnnotation(img_size, len(anns), video_objects_col, video_frames_col, video_tags_col)
     api.video.annotation.append(video_info.id, video_ann)
