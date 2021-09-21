@@ -10,7 +10,7 @@
   "modal_template": "src/modal.html",
   "modal_template_state": {"frameRate": 30},
   "task_location": "workspace_tasks",
-  "icon": "https://i.imgur.com/9uY44aW.png",
+  "icon": "https://i.imgur.com/zTseThz.png",
   "icon_background": "#FFFFFF",
   "headless": true,
   "context_menu": {
