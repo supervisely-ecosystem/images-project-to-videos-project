@@ -15,6 +15,6 @@
   "headless": true,
   "context_menu": {
     "target": ["images_project"],
-    "context_root": "Transform"
+    "context_category": "Transform"
   }
 }
