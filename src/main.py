@@ -2,8 +2,6 @@ import globals as g
 import functions as f
 import supervisely_lib as sly
 
-import convert_annotations
-
 
 @g.my_app.callback("images_project_to_videos_project")
 @sly.timeit
@@ -14,7 +12,7 @@ def images_project_to_videos_project(api: sly.Api, task_id, context, state, app_
     for dataset in g.datasets:
         vid_dataset = api.dataset.create(res_project.id, dataset.name, change_name_if_conflict=True)
         video_info, images_ids = f.process_video(api, dataset, vid_dataset)
-        convert_annotations.process_annotations(api, g.project_meta, dataset, video_info, images_ids)
+        f.process_annotations(api, g.project_meta, dataset, video_info, images_ids)
 
     g.my_app.stop()
 

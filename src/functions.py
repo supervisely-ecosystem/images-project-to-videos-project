@@ -50,15 +50,20 @@ def process_annotations(api, meta, img_dataset, video_info, images_ids):
     for idx, ann in enumerate(anns):
         figures = []
         for label in ann.labels:
-            video_object = sly.VideoObject(label.obj_class)
+            object_tag_col = []
+            for tag in label.tags:
+                video_tag = VideoTag(tag.meta)
+                object_tag_col.append(video_tag)
+
+            video_object = sly.VideoObject(label.obj_class, VideoTagCollection(object_tag_col))
             video_objects_col.append(video_object)
 
             figure = sly.VideoFigure(video_object, label.geometry, idx)
             figures.append(figure)
 
         for tag in ann.img_tags:
-            #@TODO: ADD TAGS
-            pass
+            video_tag = VideoTag(tag.meta, frame_range=[idx, idx])
+            video_tags_col.append(video_tag)
 
         frame = sly.Frame(idx, figures=figures)
         video_frames_col.append(frame)
