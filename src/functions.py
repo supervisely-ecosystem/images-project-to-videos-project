@@ -26,10 +26,12 @@ def process_video(api, img_dataset, vid_dataset):
     video_path = os.path.join(g.work_dir, f"{vid_dataset.name}.mp4")
 
     video = cv2.VideoWriter(video_path, cv2.VideoWriter_fourcc(*'vp09'), int(g.frame_rate), image_shape)
+    progress = sly.Progress("Processing video frames:", len(images_infos))
     for img_path in images_paths:
         img = cv2.imread(img_path)
         video.write(img)
         silent_remove(img_path)
+        progress.iter_done_report()
     video.release()
 
     video_names = [f"{vid_dataset.name}.mp4"]
@@ -47,6 +49,7 @@ def process_annotations(api, meta, img_dataset, video_info, images_ids):
     video_objects_col = []
     video_frames_col = []
     video_tags_col = []
+    progress = sly.Progress("Processing annotations:", len(ann_infos))
     for idx, ann in enumerate(anns):
         figures = []
         for label in ann.labels:
@@ -67,6 +70,7 @@ def process_annotations(api, meta, img_dataset, video_info, images_ids):
 
         frame = sly.Frame(idx, figures=figures)
         video_frames_col.append(frame)
+        progress.iter_done_report()
 
     img_size = anns[0].img_size
     video_objects_col = sly.VideoObjectCollection(video_objects_col)
