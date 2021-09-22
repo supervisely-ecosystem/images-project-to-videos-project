@@ -23,7 +23,7 @@
 
 # Overview
 
-Transofrms supervisely **images** project to supervisely **videos** project.
+Transforms supervisely **images** project to supervisely **videos** project.
 
 
 Application key points:  
@@ -41,7 +41,6 @@ Application key points:
 <img src="https://i.imgur.com/eYFZ7sQ.png" width="100%"/>
 
 3. Select frame rate and press the `Run` button.
- 
  
 <div align="center" markdown>
 <img src="https://i.imgur.com/bg9vhaM.png" width="500"/>
