@@ -56,7 +56,10 @@ def process_annotations(api, meta, img_dataset, video_info, images_ids):
         for label in ann.labels:
             object_tag_col = []
             for tag in label.tags:
-                video_tag = VideoTag(tag.meta)
+                if tag.value is not None:
+                    video_tag = VideoTag(tag.meta, tag.value)
+                else:
+                    video_tag = VideoTag(tag.meta)
                 object_tag_col.append(video_tag)
 
             video_object = sly.VideoObject(label.obj_class, VideoTagCollection(object_tag_col))
