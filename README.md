@@ -1,5 +1,5 @@
 <div align="center" markdown>
-<img src="https://i.imgur.com/2o4AKdp.png"/>
+<img src="https://i.imgur.com/goHDL0h.png"/>
 
 
 
@@ -23,7 +23,7 @@
 
 # Overview
 
-Transofrms supervisely **images** project to supervisely **video** project.
+Transofrms supervisely **images** project to supervisely **videos** project.
 
 
 Application key points:  
@@ -34,17 +34,17 @@ Application key points:
 
 1. Add [Images project to videos project](https://app.supervise.ly/apps/ecosystem/images-project-to-videos-project) to your team from Ecosystem.
 
-<img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/images-project-to-videos-project" src="https://imgur.com/PboVK7T.png" width="350px" style='padding-bottom: 20px'/>  
+<img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/images-project-to-videos-project" src="https://i.imgur.com/yvK4ij7.png" width="350px" style='padding-bottom: 20px'/>  
 
 2. Run app from the context menu of **Images Project**:
 
-<img src="https://imgur.com/0U710SI.png" width="100%"/>
+<img src="https://i.imgur.com/eYFZ7sQ.png" width="100%"/>
 
 3. Select frame rate and press the `Run` button.
  
  
 <div align="center" markdown>
-<img src="https://i.imgur.com/7CtG24p.png" width="500"/>
+<img src="https://i.imgur.com/bg9vhaM.png" width="500"/>
 </div>
 
 
@@ -54,4 +54,4 @@ After running the application, you will be redirected to the `Tasks` page.
 Once application processing has finished, your project will be available.  
 Click on the `project name` to proceed to it.
 
-<img src="https://i.imgur.com/crpZvnU.png"/>
+<img src="https://i.imgur.com/MRS9CKh.png"/>
