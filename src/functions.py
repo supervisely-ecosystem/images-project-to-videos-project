@@ -24,7 +24,8 @@ def process_video(api, img_dataset, vid_dataset):
     api.image.download_paths(img_dataset.id, images_ids, images_paths)
 
     video_path = os.path.join(g.work_dir, f"{vid_dataset.name}.mp4")
-    video = cv2.VideoWriter(video_path, cv2.VideoWriter_fourcc(*'vp09'), int(g.frame_rate), image_shape)
+#     video = cv2.VideoWriter(video_path, cv2.VideoWriter_fourcc(*'vp09'), int(g.frame_rate), image_shape)
+    video = cv2.VideoWriter(video_path, cv2.VideoWriter_fourcc(*'mp4v'), int(g.frame_rate), image_shape)
     progress = sly.Progress("Processing video frames:", len(images_infos))
     for img_path in images_paths:
         img = cv2.imread(img_path)
