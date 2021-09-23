@@ -1,5 +1,5 @@
 <div align="center" markdown>
-<img src="https://i.imgur.com/goHDL0h.png"/>
+<img src="https://i.imgur.com/eHExwt3.png"/>
 
 
 
@@ -43,7 +43,7 @@ Application key points:
 3. Select frame rate and press the `Run` button.
  
 <div align="center" markdown>
-<img src="https://i.imgur.com/bg9vhaM.png" width="500"/>
+<img src="https://i.imgur.com/LL5gEeL.png" width="500"/>
 </div>
 
 
