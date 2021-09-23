@@ -8,8 +8,7 @@
 <p align="center">
   <a href="#Overview">Overview</a> •
   <a href="#How-To-Use">How To Use</a> •
-  <a href="#Results">Results</a> •
-  <a href="#Demo">Demo</a> 
+  <a href="#Results">Results</a> 
 </p>
 
 [![](https://img.shields.io/badge/supervisely-ecosystem-brightgreen)](https://ecosystem.supervise.ly/apps/supervisely-ecosystem/images-project-to-videos-project)
