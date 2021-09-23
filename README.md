@@ -26,6 +26,8 @@ Transforms supervisely **images** project to supervisely **videos** project.
 
 
 Application key points:  
+- Backward compatible with [Videos project to images project](https://app.supervise.ly/apps/ecosystem/turn-video-project-into-images)
+- Result project name = original name + "(videos)" suffix
 - Images in dataset must be the **same size** (you can use [`Resize images`](https://app.supervise.ly/ecosystem/apps/resize-images))
 - Customize FPS
  
