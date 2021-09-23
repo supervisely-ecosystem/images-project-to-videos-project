@@ -1,5 +1,6 @@
 <div align="center" markdown>
-<img src="https://i.imgur.com/KIRxlH0.png"/>
+<img src="https://i.imgur.com/eHExwt3.png"/>
+
 
 
 # Images project to videos project
@@ -7,49 +8,48 @@
 <p align="center">
   <a href="#Overview">Overview</a> •
   <a href="#How-To-Use">How To Use</a> •
-  <a href="#Results">Results</a>
+  <a href="#Results">Results</a> 
 </p>
 
-[![](https://img.shields.io/badge/supervisely-ecosystem-brightgreen)](https://ecosystem.supervise.ly/apps/supervisely-ecosystem/import-coco)
+[![](https://img.shields.io/badge/supervisely-ecosystem-brightgreen)](https://ecosystem.supervise.ly/apps/supervisely-ecosystem/images-project-to-videos-project)
 [![](https://img.shields.io/badge/slack-chat-green.svg?logo=slack)](https://supervise.ly/slack)
-![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/supervisely-ecosystem/import-coco)
-[![views](https://app.supervise.ly/public/api/v3/ecosystem.counters?repo=supervisely-ecosystem/import-coco&counter=views&label=views)](https://supervise.ly)
-[![used by teams](https://app.supervise.ly/public/api/v3/ecosystem.counters?repo=supervisely-ecosystem/import-coco&counter=downloads&label=used%20by%20teams)](https://supervise.ly)
-[![runs](https://app.supervise.ly/public/api/v3/ecosystem.counters?repo=supervisely-ecosystem/import-coco&counter=runs&label=runs&123)](https://supervise.ly)
+![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/supervisely-ecosystem/images-project-to-videos-project)
+[![views](https://app.supervise.ly/public/api/v3/ecosystem.counters?repo=supervisely-ecosystem/images-project-to-videos-project&counter=views&label=views)](https://supervise.ly)
+[![used by teams](https://app.supervise.ly/public/api/v3/ecosystem.counters?repo=supervisely-ecosystem/images-project-to-videos-project&counter=downloads&label=used%20by%20teams)](https://supervise.ly)
+[![runs](https://app.supervise.ly/public/api/v3/ecosystem.counters?repo=supervisely-ecosystem/images-project-to-videos-project&counter=runs&label=runs&123)](https://supervise.ly)
 
 </div>
 
 # Overview
 
-App converts selected [COCO format](https://cocodataset.org/#home) datasets to [Supervisely format](https://docs.supervise.ly/data-organization/00_ann_format_navi) project
+Transforms supervisely **images** project to supervisely **videos** project.
+
 
 Application key points:  
-- Supports only **Object Detection** from **COCO** format
-- Backward compatible with [Export to COCO](https://github.com/supervisely-ecosystem/export-to-coco)
+- Images in dataset must be the **same size** (you can use [`Resize images`](https://app.supervise.ly/ecosystem/apps/resize-images))
+- Customize FPS
+ 
+# How To Use 
 
+1. Add [Images project to videos project](https://app.supervise.ly/apps/ecosystem/images-project-to-videos-project) to your team from Ecosystem.
 
-# How to Use
-1. Add [Import COCO](https://ecosystem.supervise.ly/apps/import-coco) to your team from Ecosystem.
+<img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/images-project-to-videos-project" src="https://i.imgur.com/yvK4ij7.png" width="350px" style='padding-bottom: 20px'/>  
 
-[comment]: <> (<img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/import-coco" src="https://imgur.com/QQTBz0C.png" width="350px" style='padding-bottom: 20px'/>  )
+2. Run app from the context menu of **Images Project**:
 
-2. Run app from the `Plugins & Apps` chapter:
+<img src="https://i.imgur.com/eYFZ7sQ.png" width="100%"/>
 
-[comment]: <> (<img src="https://imgur.com/6nPIM21.png"/>)
+3. Select frame rate and press the `Run` button.
+ 
+<div align="center" markdown>
+<img src="https://i.imgur.com/LL5gEeL.png" width="500"/>
+</div>
 
-3. Select import mode:
-
-- Your can download selected datasets from [COCO](https://cocodataset.org/#download).  
-- Use your custom dataset in COCO format by path to your archive in `Team Files`.
-
-[comment]: <> (<img src="https://imgur.com/8lzZUPc.png" width="600px"/>)
-
-4. After pressing the `Run` button you will be redirected to the `Tasks` page.
 
 # Results
 
-Result project will be saved in your current `Workspace` 
+After running the application, you will be redirected to the `Tasks` page.  
+Once application processing has finished, your project will be available.  
+Click on the `project name` to proceed to it.
 
-[comment]: <> (with name `mot_video`.)
-
-[comment]: <> (<img src="https://i.imgur.com/tA0lrEN.png"/>)
+<img src="https://i.imgur.com/MRS9CKh.png"/>
