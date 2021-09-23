@@ -26,14 +26,14 @@ Transforms supervisely **images** project to supervisely **videos** project.
 
 
 Application key points:  
-- Backward compatible with [Videos project to images project](https://app.supervise.ly/apps/ecosystem/turn-video-project-into-images)
+- Backward compatible with [Videos project to images project](https://ecosystem.supervise.ly/apps/turn-video-project-into-images)
 - Result project name = original name + "(videos)" suffix
 - Images in dataset must be the **same size** (you can use [`Resize images`](https://app.supervise.ly/ecosystem/apps/resize-images))
 - Customize FPS
  
 # How To Use 
 
-1. Add [Images project to videos project](https://app.supervise.ly/apps/ecosystem/images-project-to-videos-project) to your team from Ecosystem.
+1. Add [Images project to videos project](https://ecosystem.supervise.ly/apps/images-project-to-videos-project) to your team from Ecosystem.
 
 <img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/images-project-to-videos-project" src="https://i.imgur.com/yvK4ij7.png" width="350px" style='padding-bottom: 20px'/>  
 
