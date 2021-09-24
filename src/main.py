@@ -8,8 +8,9 @@ import supervisely_lib as sly
 def images_project_to_videos_project(api: sly.Api, task_id, context, state, app_logger):
     res_project = api.project.create(g.WORKSPACE_ID, f"{g.project_info.name}(videos)", sly.ProjectType.VIDEOS, change_name_if_conflict=True)
     api.project.update_meta(res_project.id, g.project_meta_json)
-    progress = sly.Progress(f"Processing videos:", len(g.datasets))
-    for dataset in g.datasets:
+    progress = sly.Progress(f"Processing videos:", len(g.SELECTED_DATASETS))
+    for dataset_name in g.SELECTED_DATASETS:
+        dataset = api.dataset.get_info_by_name(g.PROJECT_ID, dataset_name)
         vid_dataset = api.dataset.create(res_project.id, dataset.name, change_name_if_conflict=True)
         video_info, images_ids = f.process_video(api, dataset, vid_dataset)
         f.process_annotations(api, g.project_meta, dataset, video_info, images_ids)
