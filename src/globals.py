@@ -29,6 +29,8 @@ video_project_meta = project_meta.delete_tag_meta("object_id")
 
 if "object_id" not in [tag.name for tag in project_meta.tag_metas]:
     IS_OBJ_ID_TAG = False
+else:
+    IS_OBJ_ID_TAG = True
     # vobj_id_tag_meta = sly.TagMeta(name="object_id", value_type=sly.TagValueType.ANY_NUMBER)
     # project_meta = project_meta.add_tag_meta(vobj_id_tag_meta)
 
