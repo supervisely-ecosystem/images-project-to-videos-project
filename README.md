@@ -41,10 +41,10 @@ Application key points:
 
 <img src="https://i.imgur.com/eYFZ7sQ.png" width="100%"/>
 
-3. Select frame rate and press the `Run` button.
+3. Select frame rate, datasets and press the `Run` button.
  
 <div align="center" markdown>
-<img src="https://i.imgur.com/LL5gEeL.png" width="500"/>
+<img src="https://i.imgur.com/sDcqkXy.png" width="500"/>
 </div>
 
 
