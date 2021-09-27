@@ -1,13 +1,14 @@
 import globals as g
 import functions as f
 import supervisely_lib as sly
+from supervisely_lib.video_annotation.key_id_map import KeyIdMap
 
 
 @g.my_app.callback("images_project_to_videos_project")
 @sly.timeit
 def images_project_to_videos_project(api: sly.Api, task_id, context, state, app_logger):
     res_project = api.project.create(g.WORKSPACE_ID, f"{g.project_info.name}(videos)", sly.ProjectType.VIDEOS, change_name_if_conflict=True)
-    api.project.update_meta(res_project.id, g.project_meta_json)
+    api.project.update_meta(res_project.id, g.video_project_meta.to_json())
     progress = sly.Progress(f"Processing videos:", len(g.SELECTED_DATASETS))
     for dataset_name in g.SELECTED_DATASETS:
         dataset = api.dataset.get_info_by_name(g.PROJECT_ID, dataset_name)
