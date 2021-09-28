@@ -16,6 +16,10 @@ logger = sly.logger
 
 FRAME_RATE = os.environ['modal.state.frameRate']
 SELECTED_DATASETS = json.loads(os.environ["modal.state.selectedDatasets"].replace("'", '"'))
+ALL_DATASETS = os.getenv("modal.state.allDatasets").lower() in ('true', '1', 't')
+
+if ALL_DATASETS:
+    SELECTED_DATASETS = [dataset.name for dataset in api.dataset.get_list(PROJECT_ID)]
 
 project_info = api.project.get_info_by_id(PROJECT_ID)
 if project_info is None:

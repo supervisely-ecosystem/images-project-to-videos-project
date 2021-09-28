@@ -8,7 +8,7 @@
   "docker_image": "supervisely/base-py-sdk:6.1.95",
   "main_script": "src/main.py",
   "modal_template": "src/modal.html",
-  "modal_template_state": {"frameRate": 30, "selectedDatasets": []},
+  "modal_template_state": {"frameRate": 30, "selectedDatasets": [], "allDatasets": false},
   "task_location": "workspace_tasks",
   "icon": "https://i.imgur.com/4icHPC1.png",
   "icon_background": "#FFFFFF",
