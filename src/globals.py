@@ -25,14 +25,8 @@ if project_info.type != str(sly.ProjectType.IMAGES):
 
 project_meta_json = api.project.get_meta(project_info.id)
 project_meta = sly.ProjectMeta.from_json(project_meta_json)
-video_project_meta = project_meta.delete_tag_meta("object_id")
-
-if "object_id" not in [tag.name for tag in project_meta.tag_metas]:
-    IS_OBJ_ID_TAG = False
-else:
-    IS_OBJ_ID_TAG = True
-    # vobj_id_tag_meta = sly.TagMeta(name="object_id", value_type=sly.TagValueType.ANY_NUMBER)
-    # project_meta = project_meta.add_tag_meta(vobj_id_tag_meta)
+if "object_id" in [tag.name for tag in project_meta.tag_metas]:
+    video_project_meta = project_meta.delete_tag_meta("object_id")
 
 storage_dir = my_app.data_dir
 work_dir = os.path.join(storage_dir, "work_dir")  # res
