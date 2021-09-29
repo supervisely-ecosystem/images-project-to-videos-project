@@ -2,7 +2,7 @@ import os
 import cv2
 import subprocess
 
-import globals as g
+import sly_globals as g
 
 import supervisely_lib as sly
 from supervisely_lib.io.fs import silent_remove
