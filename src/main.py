@@ -1,4 +1,4 @@
-import globals as g
+import sly_globals as g
 import functions as f
 import supervisely_lib as sly
 from supervisely_lib.video_annotation.key_id_map import KeyIdMap
