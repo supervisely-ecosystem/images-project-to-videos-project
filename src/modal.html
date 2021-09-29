@@ -18,6 +18,7 @@
                        description="Transform all datasets from project">
             </sly-field>
         </div>
+        {{state.allDatasets}}
         <div v-if="!state.allDatasets">
             <sly-select-dataset :project-id="context.projectId" :datasets.sync="state.selectedDatasets"
                                 :options="{multiple: true}"></sly-select-dataset>
