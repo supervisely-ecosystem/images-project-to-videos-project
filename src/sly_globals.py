@@ -33,8 +33,6 @@ if "object_id" in [tag.name for tag in project_meta.tag_metas]:
 else:
     video_project_meta = project_meta
 
-
-
 storage_dir = my_app.data_dir
 work_dir = os.path.join(storage_dir, "work_dir")  # res
 mkdir(work_dir, True)
