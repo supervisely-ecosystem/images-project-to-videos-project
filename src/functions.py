@@ -1,6 +1,9 @@
 import os
 import cv2
+import subprocess
+
 import globals as g
+
 import supervisely_lib as sly
 from supervisely_lib.io.fs import silent_remove
 from supervisely_lib.video_annotation.video_tag_collection import VideoTag, VideoTagCollection
@@ -32,6 +35,16 @@ def process_video(api, img_dataset, vid_dataset):
         silent_remove(img_path)
         progress.iter_done_report()
     video.release()
+    
+    
+    if os.path.isfile(video_path):
+        converted_path = video_path.replace(f"{vid_dataset.name}.mp4", f"converted_{vid_dataset.name}.mp4")
+        # ffmpeg -i input.mp4 -c:v libvpx-vp9 -c:a libopus output.webm
+        subprocess.call(['ffmpeg', '-y', '-i', f'{video_path}', '-c:v', 'libx264', '-c:a',
+                         'libopus', f'{converted_path}'])
+        os.remove(video_path)
+        os.rename(converted_path, video_path)
+    
     video_names = [f"{vid_dataset.name}.mp4"]
     video_paths = [video_path]
 
