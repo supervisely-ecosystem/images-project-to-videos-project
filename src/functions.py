@@ -24,8 +24,7 @@ def process_video(api, img_dataset, vid_dataset):
     api.image.download_paths(img_dataset.id, images_ids, images_paths)
 
     video_path = os.path.join(g.work_dir, f"{vid_dataset.name}.mp4")
-#     video = cv2.VideoWriter(video_path, cv2.VideoWriter_fourcc(*'vp09'), int(g.frame_rate), image_shape)
-    video = cv2.VideoWriter(video_path, cv2.VideoWriter_fourcc(*'mp4v'), int(g.frame_rate), image_shape)
+    video = cv2.VideoWriter(video_path, cv2.VideoWriter_fourcc(*'mp4v'), int(g.FRAME_RATE), image_shape)
     progress = sly.Progress("Processing video frames:", len(images_infos))
     for img_path in images_paths:
         img = cv2.imread(img_path)
@@ -45,29 +44,65 @@ def process_video(api, img_dataset, vid_dataset):
     return video_info, images_ids
 
 
+def get_object_name_id_map(anns):
+    unique_obj_ids = {}
+    for ann in anns:
+        for label in ann.labels:
+            filtered_tag_vals = [tag.value for tag in label.tags if tag.name == 'object_id']
+            if len(filtered_tag_vals) == 0:
+                continue
+            if label.obj_class.name in unique_obj_ids:
+                tag_vals_set = unique_obj_ids[label.obj_class.name]
+            else:
+                tag_vals_set = set()
+                unique_obj_ids[label.obj_class.name] = tag_vals_set
+            tag_vals_set.update(filtered_tag_vals)
+    return unique_obj_ids
+
+
+def create_id_to_video_objects_map_from_object_name_ids_map(object_name_ids_map):
+    video_objects_map = {}
+    for obj_class_name, obj_class_ids in object_name_ids_map.items():
+        for obj_class_id in obj_class_ids:
+            video_object = sly.VideoObject(g.project_meta.get_obj_class(obj_class_name), class_id=obj_class_id)
+            video_objects_map[obj_class_id] = video_object
+    return video_objects_map
+
+
 def process_annotations(api, meta, img_dataset, video_info, images_ids):
     ann_infos = api.annotation.download_batch(img_dataset.id, images_ids)
     anns = [sly.Annotation.from_json(x.annotation, meta) for x in ann_infos]
+
+    video_objects_map = None
+    object_name_ids_map = get_object_name_id_map(anns)
+    if len(object_name_ids_map) > 0:
+        video_objects_map = create_id_to_video_objects_map_from_object_name_ids_map(object_name_ids_map)
     video_objects_col = []
     video_frames_col = []
     video_tags_col = []
+    vobj_id = None
     progress = sly.Progress("Processing annotations:", len(ann_infos))
     for idx, ann in enumerate(anns):
         figures = []
         for label in ann.labels:
             object_tag_col = []
             for tag in label.tags:
+                vobj_id = None
                 if tag.value is not None:
                     video_tag = VideoTag(tag.meta, tag.value)
                 else:
                     video_tag = VideoTag(tag.meta)
                 object_tag_col.append(video_tag)
-
-            video_object = sly.VideoObject(label.obj_class, VideoTagCollection(object_tag_col))
-            video_objects_col.append(video_object)
-
-            figure = sly.VideoFigure(video_object, label.geometry, idx)
-            figures.append(figure)
+                if tag.name == "object_id":
+                    vobj_id = tag.value
+            if vobj_id is not None:
+                figure = sly.VideoFigure(video_objects_map[vobj_id], label.geometry, idx, class_id=vobj_id)
+                figures.append(figure)
+            else:
+                video_object = sly.VideoObject(label.obj_class, VideoTagCollection(object_tag_col))
+                video_objects_col.append(video_object)
+                figure = sly.VideoFigure(video_object, label.geometry, idx)
+                figures.append(figure)
 
         for tag in ann.img_tags:
             video_tag = VideoTag(tag.meta, frame_range=[idx, idx])
@@ -78,7 +113,7 @@ def process_annotations(api, meta, img_dataset, video_info, images_ids):
         progress.iter_done_report()
 
     img_size = anns[0].img_size
-    video_objects_col = sly.VideoObjectCollection(video_objects_col)
+    video_objects_col = sly.VideoObjectCollection(video_objects_col + list(video_objects_map.values()))
     video_frames_col = sly.FrameCollection(video_frames_col)
     video_tags_col = VideoTagCollection(video_tags_col)
     upl_progress = sly.Progress("Uploading video annotation:", 1)

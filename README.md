@@ -26,7 +26,8 @@ Transforms supervisely **images** project to supervisely **videos** project.
 
 
 Application key points:  
-- Backward compatible with [Videos project to images project](https://ecosystem.supervise.ly/apps/turn-video-project-into-images)
+- The application has a technical tag `object_id` (applicable only: to an object, possible value: Number), all objects marked with this tag with a specific ID will belong in the video to object with the ID number specified in the tag value
+- Backward compatible with [Videos project to images project](https://ecosystem.supervise.ly/apps/turn-video-project-into-images) or man
 - Result project name = original name + "(videos)" suffix
 - Images in dataset must be the **same size** (you can use [`Resize images`](https://app.supervise.ly/ecosystem/apps/resize-images))
 - Customize FPS
@@ -41,10 +42,10 @@ Application key points:
 
 <img src="https://i.imgur.com/eYFZ7sQ.png" width="100%"/>
 
-3. Select frame rate and press the `Run` button.
+3. Select frame rate, datasets and press the `Run` button.
  
 <div align="center" markdown>
-<img src="https://i.imgur.com/LL5gEeL.png" width="500"/>
+<img src="https://i.imgur.com/HP2nCw4.png" width="500"/>
 </div>
 
 
