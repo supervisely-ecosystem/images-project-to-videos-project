@@ -17,7 +17,6 @@ logger = sly.logger
 FRAME_RATE = os.environ['modal.state.frameRate']
 SELECTED_DATASETS = json.loads(os.environ["modal.state.selectedDatasets"].replace("'", '"'))
 ALL_DATASETS = os.getenv("modal.state.allDatasets").lower() in ('true', '1', 't')
-
 if ALL_DATASETS:
     SELECTED_DATASETS = [dataset.name for dataset in api.dataset.get_list(PROJECT_ID)]
 
@@ -33,8 +32,6 @@ if "object_id" in [tag.name for tag in project_meta.tag_metas]:
     video_project_meta = project_meta.delete_tag_meta("object_id")
 else:
     video_project_meta = project_meta
-    
-
 
 storage_dir = my_app.data_dir
 work_dir = os.path.join(storage_dir, "work_dir")  # res
