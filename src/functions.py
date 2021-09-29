@@ -126,7 +126,12 @@ def process_annotations(api, meta, img_dataset, video_info, images_ids):
         progress.iter_done_report()
 
     img_size = anns[0].img_size
-    video_objects_col = sly.VideoObjectCollection(video_objects_col + list(video_objects_map.values()))
+
+    if video_objects_map is not None:
+        video_objects_col = sly.VideoObjectCollection(video_objects_col + list(video_objects_map.values()))
+    else:
+        video_objects_col = sly.VideoObjectCollection(video_objects_col)
+
     video_frames_col = sly.FrameCollection(video_frames_col)
     video_tags_col = VideoTagCollection(video_tags_col)
     upl_progress = sly.Progress("Uploading video annotation:", 1)
