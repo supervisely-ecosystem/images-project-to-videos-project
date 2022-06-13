@@ -2,7 +2,9 @@
   "name": "Images project to videos project",
   "type": "app",
   "categories": [
-    "Transform"
+    "images",
+    "videos",
+    "modalities"
   ],
   "description": "Creates video project from images project",
   "docker_image": "supervisely/base-py-sdk:6.1.95",
