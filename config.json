@@ -4,7 +4,8 @@
   "categories": [
     "images",
     "videos",
-    "modalities"
+    "modalities",
+    "data-operations"
   ],
   "description": "Creates video project from images project",
   "docker_image": "supervisely/base-py-sdk:6.1.95",
