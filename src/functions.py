@@ -31,7 +31,7 @@ def process_video(api, img_dataset, vid_dataset):
             images_paths.append(os.path.join(g.work_dir, image_info.name))
         elif cur_image_shape != image_shape:
             g.my_app.logger.warn(
-                message=f"{image_info.name} shape: {cur_image_shape} doesn't match shape of the first image in dataset: {image_shape}. Check your input data.",
+                msg=f"{image_info.name} shape: {cur_image_shape} doesn't match shape of the first image in dataset: {image_shape}. Check your input data.",
                 extra={
                     "image_shape": cur_image_shape,
                     "expected_image_shape": image_shape,
