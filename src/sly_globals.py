@@ -13,7 +13,8 @@ if sly.is_development():
 my_app = sly.AppService()
 api: sly.Api = my_app.public_api
 
-TASK_ID = sly.env.task_id()
+# TASK_ID = sly.env.task_id()
+TASK_ID = os.environ["TASK_ID"]
 TEAM_ID = sly.env.team_id()
 WORKSPACE_ID = sly.env.workspace_id()
 PROJECT_ID = sly.env.project_id()
