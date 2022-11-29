@@ -1,15 +1,15 @@
 import os
-import cv2
 import subprocess
 
-import sly_globals as g
-
+import cv2
 import supervisely as sly
 from supervisely.io.fs import silent_remove
 from supervisely.video_annotation.video_tag_collection import (
     VideoTag,
     VideoTagCollection,
 )
+
+import sly_globals as g
 
 
 def process_video(api, img_dataset, vid_dataset):
