@@ -21,16 +21,23 @@ def process_video(api, img_dataset, vid_dataset):
     images_ids = []
     images_paths = []
     for idx, image_info in enumerate(images_infos):
+        cur_image_shape = (image_info.width, image_info.height)
         if idx == 0:
-            image_shape = (image_info.width, image_info.height)
+            image_shape = cur_image_shape
             images_ids.append(image_info.id)
             images_paths.append(os.path.join(g.work_dir, image_info.name))
-        elif (image_info.width, image_info.height) == image_shape:
+        elif cur_image_shape == image_shape:
             images_ids.append(image_info.id)
             images_paths.append(os.path.join(g.work_dir, image_info.name))
-        elif (image_info.width, image_info.height) != image_shape:
+        elif cur_image_shape != image_shape:
             g.my_app.logger.warn(
-                f"Sizes of images in {img_dataset.name} dataset are not the same. Check your input data."
+                message=f"{image_info.name} shape: {cur_image_shape} doesn't match shape of the first image in dataset: {image_shape}. Check your input data.",
+                extra={
+                    "image_shape": cur_image_shape,
+                    "expected_image_shape": image_shape,
+                    "image_info": image_info,
+                    "dataset_name": img_dataset.name,
+                },
             )
             continue
 
