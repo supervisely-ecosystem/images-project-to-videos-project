@@ -21,8 +21,10 @@ def images_project_to_videos_project(api: sly.Api, task_id, context, state, app_
         vid_dataset = api.dataset.create(
             res_project.id, dataset.name, change_name_if_conflict=True
         )
-        video_info, images_ids = f.process_video(api, dataset, vid_dataset)
-        f.process_annotations(api, g.project_meta, dataset, video_info, images_ids)
+        video_info, images_ids, image_shape = f.process_video(api, dataset, vid_dataset)
+        f.process_annotations(
+            api, g.project_meta, dataset, video_info, images_ids, image_shape
+        )
         progress.iter_done_report()
 
     g.my_app.stop()

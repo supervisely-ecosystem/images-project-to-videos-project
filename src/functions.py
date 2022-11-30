@@ -16,8 +16,8 @@ def process_video(api, img_dataset, vid_dataset):
     images_infos = api.image.get_list(img_dataset.id, sort="name")
     if len(images_infos) == 0:
         g.my_app.logger.warn(f"There are no images in {img_dataset.name} dataset")
-    image_shape = None
 
+    image_shape = None
     images_ids = []
     images_paths = []
     for idx, image_info in enumerate(images_infos):
@@ -86,7 +86,7 @@ def process_video(api, img_dataset, vid_dataset):
 
     video_info = video_info[0]
     silent_remove(video_path)
-    return video_info, images_ids
+    return video_info, images_ids, image_shape
 
 
 def get_object_name_id_map(anns):
@@ -118,9 +118,18 @@ def create_id_to_video_objects_map_from_object_name_ids_map(object_name_ids_map)
     return video_objects_map
 
 
-def process_annotations(api, meta, img_dataset, video_info, images_ids):
+def process_annotations(
+    api: sly.Api, meta, img_dataset, video_info, images_ids, image_shape
+):
     ann_infos = api.annotation.download_batch(img_dataset.id, images_ids)
     anns = [sly.Annotation.from_json(x.annotation, meta) for x in ann_infos]
+
+    video_shape = (video_info.frame_width, video_info.frame_height)
+    if image_shape != video_shape:
+        anns = [
+            ann.resize((video_info.frame_height, video_info.frame_width))
+            for ann in anns
+        ]
 
     video_objects_map = None
     object_name_ids_map = get_object_name_id_map(anns)
