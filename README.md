@@ -28,7 +28,7 @@ Application key points:
 - The application has a technical tag `object_id` (applicable only: to an object, possible value: Number), all objects marked with this tag with a specific ID will belong in the video to object with the ID number specified in the tag value
 - Backward compatible with [Videos project to images project](https://ecosystem.supervise.ly/apps/turn-video-project-into-images) or man
 - Result project name format: `{original_project_name}(videos)`
-- Images in dataset must be the **same size** (you can use [`Resize images`](https://app.supervise.ly/ecosystem/apps/resize-images))
+- Images in dataset must be the **same size** (you can use [`Resize images`](https://app.supervise.ly/ecosystem/apps/resize-images)), otherwise images that will not match resolution size of the first image in the dataset will ignored.
 - Customize FPS
  
 # How To Use 
