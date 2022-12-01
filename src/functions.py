@@ -20,18 +20,22 @@ def process_video(api, img_dataset, vid_dataset, custom_data):
     image_shape = None
     images_ids = []
     images_paths = []
-    custom_data["original_images"][img_dataset.name] = []
+    custom_data["original_images"][img_dataset.name] = {}
     for idx, image_info in enumerate(images_infos):
         cur_image_shape = (image_info.width, image_info.height)
         if idx == 0:
             image_shape = cur_image_shape
             images_ids.append(image_info.id)
             images_paths.append(os.path.join(g.work_dir, image_info.name))
-            custom_data["original_images"][img_dataset.name].append(image_info.name)
+            custom_data["original_images"][img_dataset.name].update(
+                {idx: image_info.name}
+            )
         elif cur_image_shape == image_shape:
             images_ids.append(image_info.id)
             images_paths.append(os.path.join(g.work_dir, image_info.name))
-            custom_data["original_images"][img_dataset.name].append(image_info.name)
+            custom_data["original_images"][img_dataset.name].update(
+                {idx: image_info.name}
+            )
         elif cur_image_shape != image_shape:
             g.my_app.logger.warn(
                 msg=f"{image_info.name} shape: '{cur_image_shape}' doesn't match shape of the first image in dataset: '{image_shape}'. Check your input data.",
