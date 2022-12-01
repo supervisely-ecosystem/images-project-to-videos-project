@@ -12,7 +12,7 @@ from supervisely.video_annotation.video_tag_collection import (
 import sly_globals as g
 
 
-def process_video(api, img_dataset, vid_dataset):
+def process_video(api, img_dataset, vid_dataset, custom_data):
     images_infos = api.image.get_list(img_dataset.id, sort="name")
     if len(images_infos) == 0:
         g.my_app.logger.warn(f"There are no images in {img_dataset.name} dataset")
@@ -20,15 +20,22 @@ def process_video(api, img_dataset, vid_dataset):
     image_shape = None
     images_ids = []
     images_paths = []
+    custom_data["original_images"][img_dataset.name] = {}
     for idx, image_info in enumerate(images_infos):
         cur_image_shape = (image_info.width, image_info.height)
         if idx == 0:
             image_shape = cur_image_shape
             images_ids.append(image_info.id)
             images_paths.append(os.path.join(g.work_dir, image_info.name))
+            custom_data["original_images"][img_dataset.name].update(
+                {idx: image_info.name}
+            )
         elif cur_image_shape == image_shape:
             images_ids.append(image_info.id)
             images_paths.append(os.path.join(g.work_dir, image_info.name))
+            custom_data["original_images"][img_dataset.name].update(
+                {idx: image_info.name}
+            )
         elif cur_image_shape != image_shape:
             g.my_app.logger.warn(
                 msg=f"{image_info.name} shape: '{cur_image_shape}' doesn't match shape of the first image in dataset: '{image_shape}'. Check your input data.",
@@ -86,7 +93,7 @@ def process_video(api, img_dataset, vid_dataset):
 
     video_info = video_info[0]
     silent_remove(video_path)
-    return video_info, images_ids, image_shape
+    return video_info, images_ids, image_shape, custom_data
 
 
 def get_object_name_id_map(anns):
