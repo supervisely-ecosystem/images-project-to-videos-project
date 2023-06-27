@@ -35,16 +35,16 @@ Application key points:
 
 1. Add [Images project to videos project](https://ecosystem.supervise.ly/apps/images-project-to-videos-project) to your team from Ecosystem.
 
-<img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/images-project-to-videos-project" src="https://i.imgur.com/yvK4ij7.png" width="350px" style='padding-bottom: 20px'/>  
+<img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/images-project-to-videos-project" src="media/htu1.png" width="350px" style='padding-bottom: 20px'/>  
 
 2. Run app from the context menu of **Images Project**:
 
-<img src="https://i.imgur.com/eYFZ7sQ.png" width="100%"/>
+<img src="media/htu2.png" width="100%"/>
 
 3. Select frame rate, datasets and press the `Run` button.
  
 <div align="center" markdown>
-<img src="https://i.imgur.com/HP2nCw4.png" width="500"/>
+<img src="media/htu3.png" width="500"/>
 </div>
 
 
@@ -54,4 +54,4 @@ After running the application, you will be redirected to the `Tasks` page.
 Once application processing has finished, your project will be available.  
 Click on the `project name` to proceed to it.
 
-<img src="https://i.imgur.com/MRS9CKh.png"/>
+<img src="media/r.png"/>
