@@ -17,7 +17,7 @@
     "selectedDatasets": []
   },
   "task_location": "workspace_tasks",
-  "icon": "https://i.imgur.com/4icHPC1.png",
+  "icon": "media/icon.png",
   "icon_background": "#FFFFFF",
   "headless": true,
   "context_menu": {
