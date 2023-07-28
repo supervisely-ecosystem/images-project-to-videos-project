@@ -1,30 +1,30 @@
 {
-  "name": "Images project to videos project",
-  "type": "app",
-  "categories": [
-    "images",
-    "videos",
-    "modalities",
-    "data operations"
-  ],
-  "description": "Creates video project from images project",
-  "docker_image": "supervisely/base-py-sdk:6.72.55",
-  "main_script": "src/main.py",
-  "modal_template": "src/modal.html",
-  "modal_template_state": {
-    "frameRate": 30,
-    "allDatasets": true,
-    "selectedDatasets": []
-  },
-  "task_location": "workspace_tasks",
-  "icon": "https://i.imgur.com/4icHPC1.png",
-  "icon_background": "#FFFFFF",
-  "headless": true,
-  "context_menu": {
-    "target": [
-      "images_project"
+    "name": "Images project to videos project",
+    "type": "app",
+    "categories": [
+        "images",
+        "videos",
+        "modalities",
+        "data operations"
     ],
-    "context_category": "Transform"
-  },
-  "poster": "https://user-images.githubusercontent.com/106374579/182890521-18378f94-eaea-42f0-b438-1a10ffcfb6ca.png"
+    "description": "Creates video project from images project",
+    "docker_image": "supervisely/data-operations:0.0.3",
+    "main_script": "src/main.py",
+    "modal_template": "src/modal.html",
+    "modal_template_state": {
+        "frameRate": 30,
+        "allDatasets": true,
+        "selectedDatasets": []
+    },
+    "task_location": "workspace_tasks",
+    "icon": "https://i.imgur.com/4icHPC1.png",
+    "icon_background": "#FFFFFF",
+    "headless": true,
+    "context_menu": {
+        "target": [
+            "images_project"
+        ],
+        "context_category": "Transform"
+    },
+    "poster": "https://user-images.githubusercontent.com/106374579/182890521-18378f94-eaea-42f0-b438-1a10ffcfb6ca.png"
 }
