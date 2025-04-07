@@ -25,6 +25,8 @@ def images_project_to_videos_project(api: sly.Api, task_id, context, state, app_
         video_info, images_ids, image_shape, custom_data = f.process_video(
             api, dataset, vid_dataset, custom_data
         )
+        if video_info is None:
+            continue
         api.project.update_custom_data(id=res_project.id, data=custom_data)
         f.process_annotations(
             api, g.project_meta, dataset, video_info, images_ids, image_shape
