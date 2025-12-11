@@ -10,10 +10,8 @@ if sly.is_development():
     load_dotenv(os.path.expanduser("~/supervisely.env"))
 
 
-my_app = sly.AppService()
-api: sly.Api = my_app.public_api
+api = sly.Api.from_env()
 
-# TASK_ID = sly.env.task_id()
 TASK_ID = os.environ["TASK_ID"]
 TEAM_ID = sly.env.team_id()
 WORKSPACE_ID = sly.env.workspace_id()
@@ -46,6 +44,6 @@ if "object_id" in [tag.name for tag in project_meta.tag_metas]:
 else:
     video_project_meta = project_meta
 
-storage_dir = my_app.data_dir
+storage_dir = sly.app.get_data_dir()
 work_dir = os.path.join(storage_dir, "work_dir")  # res
 mkdir(work_dir, True)

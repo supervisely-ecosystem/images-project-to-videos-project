@@ -1,13 +1,14 @@
 import supervisely as sly
-from supervisely.video_annotation.key_id_map import KeyIdMap
 
 import functions as f
 import sly_globals as g
 
+from supervisely import handle_exceptions
 
-@g.my_app.callback("images_project_to_videos_project")
+
 @sly.timeit
-def images_project_to_videos_project(api: sly.Api, task_id, context, state, app_logger):
+@handle_exceptions(has_ui=False)
+def images_project_to_videos_project(api: sly.Api):
     res_project = api.project.create(
         g.WORKSPACE_ID,
         f"{g.project_info.name}(videos)",
@@ -31,8 +32,6 @@ def images_project_to_videos_project(api: sly.Api, task_id, context, state, app_
         )
         progress.iter_done_report()
 
-    g.my_app.stop()
-
 
 def main():
     sly.logger.info(
@@ -44,8 +43,7 @@ def main():
             "PROJECT_ID": g.PROJECT_ID,
         },
     )
-    g.my_app.run(initial_events=[{"command": "images_project_to_videos_project"}])
-
+    images_project_to_videos_project(g.api)
 
 if __name__ == "__main__":
     sly.main_wrapper("main", main)
