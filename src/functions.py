@@ -15,7 +15,7 @@ import sly_globals as g
 def process_video(api, img_dataset, vid_dataset, custom_data):
     images_infos = api.image.get_list(img_dataset.id, sort="name")
     if len(images_infos) == 0:
-        g.my_app.logger.warn(f"There are no images in {img_dataset.name} dataset")
+        sly.logger.warn(f"There are no images in {img_dataset.name} dataset")
 
     image_shape = None
     images_ids = []
@@ -37,7 +37,7 @@ def process_video(api, img_dataset, vid_dataset, custom_data):
                 {idx: image_info.name}
             )
         elif cur_image_shape != image_shape:
-            g.my_app.logger.warn(
+            sly.logger.warning(
                 msg=f"{image_info.name} shape: '{cur_image_shape}' doesn't match shape of the first image in dataset: '{image_shape}'. Check your input data.",
                 extra={
                     "image_shape": cur_image_shape,
