@@ -10,7 +10,7 @@ if sly.is_development():
     load_dotenv(os.path.expanduser("~/supervisely.env"))
 
 
-api: sly.Api = sly.Api.from_env()
+api = sly.Api.from_env()
 
 TASK_ID = os.environ["TASK_ID"]
 TEAM_ID = sly.env.team_id()
