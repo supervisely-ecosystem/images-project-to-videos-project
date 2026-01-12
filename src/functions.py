@@ -12,7 +12,7 @@ from supervisely.video_annotation.video_tag_collection import (
 import sly_globals as g
 
 
-def process_video(api, img_dataset, vid_dataset, custom_data):
+def process_video(api: sly.Api, img_dataset, vid_dataset, custom_data):
     images_infos = api.image.get_list(img_dataset.id, sort="name")
     if len(images_infos) == 0:
         sly.logger.warn(f"There are no images in {img_dataset.name} dataset")
@@ -90,7 +90,9 @@ def process_video(api, img_dataset, vid_dataset, custom_data):
         vid_dataset.id, names=video_names, paths=video_paths
     )
     upl_progress.iter_done_report()
-
+    if video_info is None:
+        sly.logger.warn(f"Failed to upload video {video_names[0]}.", extra={"video_names": video_names, "video_paths": video_paths})
+        return None, None, None, None
     video_info = video_info[0]
     silent_remove(video_path)
     return video_info, images_ids, image_shape, custom_data
