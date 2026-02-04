@@ -20,12 +20,19 @@ PROJECT_ID = sly.env.project_id()
 logger = sly.logger
 
 FRAME_RATE = os.environ["modal.state.frameRate"]
-SELECTED_DATASETS = json.loads(
-    os.environ["modal.state.selectedDatasets"].replace("'", '"')
+ALL_DATASETS = os.getenv("modal.state.allDatasets").lower() in (
+    "true",
+    "1",
+    "t",
 )
-ALL_DATASETS = os.getenv("modal.state.allDatasets").lower() in ("true", "1", "t")
+
 if ALL_DATASETS:
+    # Get only top-level datasets, nested ones will be processed recursively
     SELECTED_DATASETS = [dataset.name for dataset in api.dataset.get_list(PROJECT_ID)]
+else:
+    SELECTED_DATASETS = json.loads(
+        os.environ["modal.state.selectedDatasets"].replace("'", '"')
+    )
 
 project_info = api.project.get_info_by_id(PROJECT_ID)
 if project_info is None:
