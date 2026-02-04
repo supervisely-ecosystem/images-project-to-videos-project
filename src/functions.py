@@ -91,6 +91,9 @@ def process_video(api, img_dataset, vid_dataset, custom_data):
     )
     upl_progress.iter_done_report()
 
+    if video_info is None or len(video_info) == 0:
+        sly.logger.warn(f"Video upload failed for dataset {vid_dataset.name}")
+
     video_info = video_info[0]
     silent_remove(video_path)
     return video_info, images_ids, image_shape, custom_data
