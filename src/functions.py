@@ -12,10 +12,62 @@ from supervisely.video_annotation.video_tag_collection import (
 import sly_globals as g
 
 
+def process_dataset_with_nested(
+    api, img_dataset, vid_dataset, custom_data, res_project_id
+):
+    """
+    Process dataset. If it has images, create video.
+    If it's empty, recursively process nested datasets.
+    """
+    images_infos = api.image.get_list(img_dataset.id, sort="name")
+
+    # If dataset has images, process them (original logic)
+    if len(images_infos) > 0:
+        sly.logger.info(
+            f"Processing dataset '{img_dataset.name}' with {len(images_infos)} images"
+        )
+        video_info, images_ids, image_shape, custom_data = process_video(
+            api, img_dataset, vid_dataset, custom_data
+        )
+        if video_info is not None:
+            process_annotations(
+                api, g.project_meta, img_dataset, video_info, images_ids, image_shape
+            )
+        return custom_data
+
+    # Dataset is empty, check for nested datasets
+    sly.logger.info(
+        f"Dataset '{img_dataset.name}' is empty, looking for nested datasets..."
+    )
+    children = api.dataset.get_list(img_dataset.project_id, parent_id=img_dataset.id)
+
+    if len(children) == 0:
+        sly.logger.warn(
+            f"Dataset '{img_dataset.name}' has no images and no nested datasets"
+        )
+        return custom_data
+
+    # Process nested datasets recursively
+    sly.logger.info(f"Found {len(children)} nested dataset(s) in '{img_dataset.name}'")
+    for child_dataset in children:
+        vid_child_dataset = api.dataset.create(
+            res_project_id,
+            child_dataset.name,
+            parent_id=vid_dataset.id,
+            change_name_if_conflict=True,
+        )
+        custom_data = process_dataset_with_nested(
+            api, child_dataset, vid_child_dataset, custom_data, res_project_id
+        )
+
+    return custom_data
+
+
 def process_video(api, img_dataset, vid_dataset, custom_data):
     images_infos = api.image.get_list(img_dataset.id, sort="name")
     if len(images_infos) == 0:
         sly.logger.warn(f"There are no images in {img_dataset.name} dataset")
+        return None, [], None, custom_data
 
     image_shape = None
     images_ids = []
@@ -153,15 +205,19 @@ def process_annotations(
         figures = []
         for label in ann.labels:
             object_tag_col = []
+            vobj_id = None
             for tag in label.tags:
-                vobj_id = None
+                if tag.name == "object_id":
+                    vobj_id = tag.value
+                    # Skip object_id tag - it's used only for linking, not needed in video annotations
+                    continue
+
                 if tag.value is not None:
                     video_tag = VideoTag(tag.meta, tag.value)
                 else:
                     video_tag = VideoTag(tag.meta)
                 object_tag_col.append(video_tag)
-                if tag.name == "object_id":
-                    vobj_id = tag.value
+
             if vobj_id is not None:
                 figure = sly.VideoFigure(
                     video_objects_map[vobj_id], label.geometry, idx, class_id=vobj_id

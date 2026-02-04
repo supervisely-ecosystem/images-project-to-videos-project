@@ -23,13 +23,11 @@ def images_project_to_videos_project(api: sly.Api):
         vid_dataset = api.dataset.create(
             res_project.id, dataset.name, change_name_if_conflict=True
         )
-        video_info, images_ids, image_shape, custom_data = f.process_video(
-            api, dataset, vid_dataset, custom_data
+        # Process dataset (with automatic nested dataset handling if empty)
+        custom_data = f.process_dataset_with_nested(
+            api, dataset, vid_dataset, custom_data, res_project.id
         )
         api.project.update_custom_data(id=res_project.id, data=custom_data)
-        f.process_annotations(
-            api, g.project_meta, dataset, video_info, images_ids, image_shape
-        )
         progress.iter_done_report()
 
 
@@ -44,6 +42,7 @@ def main():
         },
     )
     images_project_to_videos_project(g.api)
+
 
 if __name__ == "__main__":
     sly.main_wrapper("main", main)
