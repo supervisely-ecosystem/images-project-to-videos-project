@@ -1,2 +1,2 @@
-supervisely==6.73.486
+supervisely==6.73.564
 scikit-image>=0.26.0
